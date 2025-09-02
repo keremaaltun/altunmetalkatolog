@@ -1,0 +1,70 @@
+[
+  {
+    "id": "rebottle-plastic-pallet",
+    "name": "Rebottle IBC (Plastik Palet)",
+    "code": "RBP-PL",
+    "category": "Rebottle IBC",
+    "description": "Plastik paletli, yüksek dayanımlı IBC tank.",
+    "price": 0,
+    "currency": "TRY",
+    "tags": ["ibc", "plastik palet"],
+    "images": ["assets/sample/ibc-plastic.jpg"]
+  },
+  {
+    "id": "rebottle-wood-pallet",
+    "name": "Rebottle IBC (Ahşap Palet)",
+    "code": "RBP-WD",
+    "category": "Rebottle IBC",
+    "description": "Ahşap paletli IBC tank.",
+    "price": 0,
+    "currency": "TRY",
+    "tags": ["ibc", "ahşap palet"],
+    "images": ["assets/sample/ibc-wood.jpg"]
+  },
+  {
+    "id": "rebottle-metal-pallet",
+    "name": "Rebottle IBC (Metal Palet)",
+    "code": "RBP-MT",
+    "category": "Rebottle IBC",
+    "description": "Metal paletli IBC tank.",
+    "price": 0,
+    "currency": "TRY",
+    "tags": ["ibc", "metal palet"],
+    "images": ["assets/sample/ibc-metal.jpg"]
+  },
+  {
+    "id": "plastic-drum-220",
+    "name": "Plastik Bidon 220 Lt",
+    "code": "PB-220",
+    "category": "Bidon/Varil",
+    "description": "220 litre kapasiteli plastik bidon.",
+    "price": 0,
+    "currency": "TRY",
+    "tags": ["bidon", "plastik", "220L"],
+    "images": ["assets/sample/drum-plastic.jpg"]
+  },
+  {
+    "id": "metal-drum",
+    "name": "Demir Varil",
+    "code": "DV-STD",
+    "category": "Bidon/Varil",
+    "description": "Standart boy metal varil.",
+    "price": 0,
+    "currency": "TRY",
+    "tags": ["varil", "metal"],
+    "images": ["assets/sample/drum-metal.jpg"]
+  },
+  {
+    "id": "secondhand-ibc",
+    "name": "2. El IBC Tank",
+    "code": "IBC-USED",
+    "category": "2. El",
+    "description": "Kalite kontrolden geçmiş uygun fiyatlı IBC tank.",
+    "price": 0,
+    "currency": "TRY",
+    "tags": ["2.el", "ibc"],
+    "isNew": true,
+    "images": ["assets/sample/ibc-used.jpg"]
+  }
+]
+
