@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ürün Kataloğu</title>
+    <meta name="description" content="Altun Metal ürün kataloğu" />
+    <link rel="icon" href="assets/placeholder.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h1 id="companyName">Altun Metal</h1>
+        <p id="companyTagline">Sürdürülebilir geri dönüşüm ve kaliteli ürünler</p>
+      </div>
+    </header>
+
+    <section class="toolbar">
+      <div class="container toolbar__inner">
+        <div class="toolbar__group">
+          <label for="searchInput">Ara</label>
+          <input id="searchInput" type="search" placeholder="İsim, kod, açıklama, etiket…" />
+        </div>
+        <div class="toolbar__group">
+          <label for="categorySelect">Kategori</label>
+          <select id="categorySelect">
+            <option value="">Tüm kategoriler</option>
+          </select>
+        </div>
+        <div class="toolbar__group">
+          <label for="sortSelect">Sırala</label>
+          <select id="sortSelect">
+            <option value="name-asc">İsim A→Z</option>
+            <option value="name-desc">İsim Z→A</option>
+            <option value="price-asc">Fiyat Artan</option>
+            <option value="price-desc">Fiyat Azalan</option>
+            <option value="code-asc">Kod A→Z</option>
+            <option value="code-desc">Kod Z→A</option>
+          </select>
+        </div>
+        <div class="toolbar__spacer"></div>
+        <div class="toolbar__group toolbar__actions">
+          <button id="resetFiltersBtn" class="btn btn-secondary" type="button">Sıfırla</button>
+          <button id="printBtn" class="btn btn-primary" type="button">PDF İndir</button>
+        </div>
+      </div>
+    </section>
+
+    <main class="container">
+      <div id="resultsMeta" class="results-meta" aria-live="polite"></div>
+      <div id="productGrid" class="grid"></div>
+      <div id="emptyState" class="empty-state" hidden>
+        <img src="assets/placeholder.svg" alt="Sonuç yok" />
+        <p>Eşleşen ürün bulunamadı. Arama veya kategoriyi değiştirin.</p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer__left">
+          <strong>İletişim</strong>
+          <div id="companyContact">info@altunmetal.com • +90 000 000 00 00</div>
+        </div>
+        <div class="footer__right">
+          <small>© <span id="year"></span> <span id="companyNameFooter">Altun Metal</span></small>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Ürün görseli görüntüleyici">
+      <button class="lightbox__close" aria-label="Kapat" type="button">×</button>
+      <button class="lightbox__nav lightbox__prev" aria-label="Önceki görsel" type="button">‹</button>
+      <img id="lightboxImage" src="" alt="Ürün görseli" />
+      <button class="lightbox__nav lightbox__next" aria-label="Sonraki görsel" type="button">›</button>
+      <div id="lightboxCounter" class="lightbox__counter"></div>
+    </div>
+
+    <script>
+      window.CATALOG_CONFIG = {
+        companyName: 'Altun Metal',
+        companyTagline: 'Sürdürülebilir geri dönüşüm ve kaliteli ürünler',
+        companyContact: 'info@altunmetal.com • +90 000 000 00 00'
+      };
+    </script>
+    <script src="script.js"></script>
+  </body>
+  </html>
+
