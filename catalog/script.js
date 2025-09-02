@@ -1,6 +1,7 @@
 /* Ürün Kataloğu Betiği */
 
 const state = { products: [], filtered: [], categories: new Set(), activeImages: [], activeImageIndex: 0 };
+const PAGE = (typeof window !== 'undefined' && window.PAGE_CONFIG) ? window.PAGE_CONFIG : {};
 
 function formatCurrency(value, currency = 'TRY', locale = 'tr-TR') {
   try { return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(value); }
@@ -21,10 +22,15 @@ function applyConfig() {
   if (cfg.companyTagline) { document.getElementById('companyTagline').textContent = cfg.companyTagline; }
   if (cfg.companyContact) { document.getElementById('companyContact').textContent = cfg.companyContact; }
   document.getElementById('year').textContent = new Date().getFullYear();
+  if (PAGE && PAGE.hideToolbar) {
+    const tb = document.querySelector('.toolbar');
+    if (tb) tb.style.display = 'none';
+  }
 }
 
 function renderCategories() {
   const select = document.getElementById('categorySelect');
+  if (!select) return;
   for (const category of Array.from(state.categories).sort()) {
     const opt = document.createElement('option');
     opt.value = category; opt.textContent = category; select.appendChild(opt);
@@ -60,13 +66,17 @@ function productCard(product) {
 
 function renderGrid() {
   const grid = document.getElementById('productGrid');
-  if (state.filtered.length === 0) { grid.innerHTML = ''; document.getElementById('emptyState').hidden = false; }
-  else { document.getElementById('emptyState').hidden = true; grid.innerHTML = state.filtered.map(productCard).join(''); }
-  document.getElementById('resultsMeta').textContent = `${state.filtered.length} sonuç`;
+  const empty = document.getElementById('emptyState');
+  const meta = document.getElementById('resultsMeta');
+  if (!grid) return;
+  if (state.filtered.length === 0) { grid.innerHTML = ''; if (empty) empty.hidden = false; }
+  else { if (empty) empty.hidden = true; grid.innerHTML = state.filtered.map(productCard).join(''); }
+  if (meta) meta.textContent = `${state.filtered.length} sonuç`;
 }
 
 function attachGridEvents() {
   const grid = document.getElementById('productGrid');
+  if (!grid) return;
   grid.addEventListener('click', (e) => {
     const card = e.target.closest('.card'); if (!card) return;
     if (e.target.closest('.card__media') || e.target.closest('.btn-view')) {
@@ -77,12 +87,17 @@ function attachGridEvents() {
 }
 
 function filterAndSort() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  const category = document.getElementById('categorySelect').value;
-  const sort = document.getElementById('sortSelect').value;
+  const searchEl = document.getElementById('searchInput');
+  const categoryEl = document.getElementById('categorySelect');
+  const sortEl = document.getElementById('sortSelect');
+  const q = (searchEl ? searchEl.value : '').trim().toLowerCase();
+  const category = categoryEl ? categoryEl.value : '';
+  const sort = sortEl ? sortEl.value : 'name-asc';
 
   state.filtered = state.products.filter(p => {
-    const inCategory = !category || p.category === category;
+    const pageCategoryOk = !PAGE?.filters?.category || p.category === PAGE.filters.category;
+    const pageIsNewOk = (PAGE?.filters?.isNew === undefined) || (!!p.isNew === !!PAGE.filters.isNew);
+    const inCategory = (!category || p.category === category) && pageCategoryOk && pageIsNewOk;
     if (!q) return inCategory;
     const hay = `${p.name} ${p.description || ''} ${p.code || ''} ${(p.tags || []).join(' ')}`.toLowerCase();
     return inCategory && hay.includes(q);
@@ -101,16 +116,21 @@ function filterAndSort() {
 }
 
 function attachToolbarEvents() {
-  document.getElementById('searchInput').addEventListener('input', () => { filterAndSort(); renderGrid(); });
-  document.getElementById('categorySelect').addEventListener('change', () => { filterAndSort(); renderGrid(); });
-  document.getElementById('sortSelect').addEventListener('change', () => { filterAndSort(); renderGrid(); });
-  document.getElementById('resetFiltersBtn').addEventListener('click', () => {
-    document.getElementById('searchInput').value = '';
-    document.getElementById('categorySelect').value = '';
-    document.getElementById('sortSelect').value = 'name-asc';
+  const searchInput = document.getElementById('searchInput');
+  const categorySelect = document.getElementById('categorySelect');
+  const sortSelect = document.getElementById('sortSelect');
+  const resetBtn = document.getElementById('resetFiltersBtn');
+  const printBtn = document.getElementById('printBtn');
+  if (searchInput) searchInput.addEventListener('input', () => { filterAndSort(); renderGrid(); });
+  if (categorySelect) categorySelect.addEventListener('change', () => { filterAndSort(); renderGrid(); });
+  if (sortSelect) sortSelect.addEventListener('change', () => { filterAndSort(); renderGrid(); });
+  if (resetBtn) resetBtn.addEventListener('click', () => {
+    if (searchInput) searchInput.value = '';
+    if (categorySelect) categorySelect.value = '';
+    if (sortSelect) sortSelect.value = 'name-asc';
     filterAndSort(); renderGrid();
   });
-  document.getElementById('printBtn').addEventListener('click', () => window.print());
+  if (printBtn) printBtn.addEventListener('click', () => window.print());
 }
 
 // Lightbox
@@ -127,6 +147,7 @@ function updateLightbox() {
 function closeLightbox() { const lb = document.getElementById('lightbox'); lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); }
 function attachLightboxEvents() {
   const lb = document.getElementById('lightbox');
+  if (!lb) return;
   lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
   lb.querySelector('.lightbox__close').addEventListener('click', closeLightbox);
   lb.querySelector('.lightbox__prev').addEventListener('click', () => { if (state.activeImageIndex > 0) { state.activeImageIndex--; updateLightbox(); } });
@@ -144,6 +165,11 @@ async function init() {
   applyConfig();
   await loadData();
   renderCategories();
+  // Apply default page filters
+  if (PAGE?.filters?.category) {
+    const cs = document.getElementById('categorySelect');
+    if (cs) cs.value = PAGE.filters.category;
+  }
   filterAndSort();
   renderGrid();
   attachToolbarEvents();

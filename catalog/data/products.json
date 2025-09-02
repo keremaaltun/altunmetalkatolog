@@ -8,6 +8,7 @@
     "price": 0,
     "currency": "TRY",
     "tags": ["ibc", "plastik palet"],
+    "isNew": true,
     "images": ["assets/sample/ibc-plastic.jpg"]
   },
   {
@@ -19,6 +20,7 @@
     "price": 0,
     "currency": "TRY",
     "tags": ["ibc", "ahşap palet"],
+    "isNew": true,
     "images": ["assets/sample/ibc-wood.jpg"]
   },
   {
@@ -30,6 +32,7 @@
     "price": 0,
     "currency": "TRY",
     "tags": ["ibc", "metal palet"],
+    "isNew": true,
     "images": ["assets/sample/ibc-metal.jpg"]
   },
   {
@@ -63,7 +66,6 @@
     "price": 0,
     "currency": "TRY",
     "tags": ["2.el", "ibc"],
-    "isNew": true,
     "images": ["assets/sample/ibc-used.jpg"]
   }
 ]

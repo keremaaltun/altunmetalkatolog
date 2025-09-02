@@ -16,44 +16,19 @@
       </div>
     </header>
 
-    <section class="toolbar">
-      <div class="container toolbar__inner">
-        <div class="toolbar__group">
-          <label for="searchInput">Ara</label>
-          <input id="searchInput" type="search" placeholder="İsim, kod, açıklama, etiket…" />
+    <main class="container" style="padding:24px 0;">
+      <section style="display:grid; grid-template-columns: 1fr; gap: 24px; align-items:center;">
+        <div>
+          <img src="../logo.png" alt="Altun Metal" style="max-width:160px; height:auto;"/>
+          <h2 style="margin: 16px 0 8px 0; color:#065f46">Altun Metal</h2>
+          <p style="color:#374151; max-width: 720px;">Geri dönüşüm odaklı yaklaşımımızla yeni IBC ürünleri, 2. el IBC çözümleri ve plastik bidon/varil ürünleri sunuyoruz. Kalite, sürdürülebilirlik ve uygun fiyat önceliğimizdir.</p>
         </div>
-        <div class="toolbar__group">
-          <label for="categorySelect">Kategori</label>
-          <select id="categorySelect">
-            <option value="">Tüm kategoriler</option>
-          </select>
+        <div style="display:flex; gap: 12px; flex-wrap: wrap;">
+          <a class="btn btn-primary" href="new-ibc.html">Yeni Ürünler (IBC)</a>
+          <a class="btn btn-secondary" href="secondhand-ibc.html">2. El IBC Ürünleri</a>
+          <a class="btn btn-secondary" href="plastic-drums.html">Plastik Bidonlar</a>
         </div>
-        <div class="toolbar__group">
-          <label for="sortSelect">Sırala</label>
-          <select id="sortSelect">
-            <option value="name-asc">İsim A→Z</option>
-            <option value="name-desc">İsim Z→A</option>
-            <option value="price-asc">Fiyat Artan</option>
-            <option value="price-desc">Fiyat Azalan</option>
-            <option value="code-asc">Kod A→Z</option>
-            <option value="code-desc">Kod Z→A</option>
-          </select>
-        </div>
-        <div class="toolbar__spacer"></div>
-        <div class="toolbar__group toolbar__actions">
-          <button id="resetFiltersBtn" class="btn btn-secondary" type="button">Sıfırla</button>
-          <button id="printBtn" class="btn btn-primary" type="button">PDF İndir</button>
-        </div>
-      </div>
-    </section>
-
-    <main class="container">
-      <div id="resultsMeta" class="results-meta" aria-live="polite"></div>
-      <div id="productGrid" class="grid"></div>
-      <div id="emptyState" class="empty-state" hidden>
-        <img src="assets/placeholder.svg" alt="Sonuç yok" />
-        <p>Eşleşen ürün bulunamadı. Arama veya kategoriyi değiştirin.</p>
-      </div>
+      </section>
     </main>
 
     <footer class="site-footer">
@@ -67,15 +42,6 @@
         </div>
       </div>
     </footer>
-
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Ürün görseli görüntüleyici">
-      <button class="lightbox__close" aria-label="Kapat" type="button">×</button>
-      <button class="lightbox__nav lightbox__prev" aria-label="Önceki görsel" type="button">‹</button>
-      <img id="lightboxImage" src="" alt="Ürün görseli" />
-      <button class="lightbox__nav lightbox__next" aria-label="Sonraki görsel" type="button">›</button>
-      <div id="lightboxCounter" class="lightbox__counter"></div>
-    </div>
 
     <script>
       window.CATALOG_CONFIG = {
